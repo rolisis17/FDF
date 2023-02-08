@@ -23,6 +23,8 @@
 
 # include "mlx.h"
 # include "libft/libft.h"
+# include <stdio.h>
+# include <math.h>
 
 typedef struct	s_data {
 	void	*img;
@@ -37,21 +39,31 @@ typedef struct	s_dir {
 	int	y;
 }				t_dir;
 
+typedef struct	s_line {
+	int	x1;
+	int	y1;
+	int	x2;
+	int	y2;
+}				t_line;
+
 typedef struct	s_vars {
 	void	*mlx;
 	void	*win;
 }				t_vars;
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int	create_trgb(int t, int r, int g, int b);
-int	get_b(int trgb);
-int	get_g(int trgb);
-int	get_r(int trgb);
-int	get_t(int trgb);
-int	close_win(int keycode, t_vars *vars);
-void	my_mlx_line_put(t_data *data, t_dir start, t_dir end, int color);
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int				create_trgb(int t, int r, int g, int b);
+int				get_b(int trgb);
+int				get_g(int trgb);
+int				get_r(int trgb);
+int				get_t(int trgb);
+int				close_win(int keycode, t_vars *vars);
+void			my_mlx_line_put(t_data *data, t_dir start, t_dir end, int color);
 unsigned int	find_line_x(t_dir start, t_dir end);
 unsigned int	find_line_y(t_dir start, t_dir end);
+void			drawline(t_data *img, t_dir start, t_dir end, int color);
+void			ft_drawcircle(t_data *img, int color);
+void			drawmidlines(t_data *img);
 
 
 #endif
