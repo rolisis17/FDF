@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:12:17 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/09 13:37:44 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/09 21:10:15 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main()
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	my_mlx_line_put(&img, start, end, 0x009090FF);
 	drawmidlines(&img);
-	//ft_drawcircle(&img, combinetwodots(start, end), 0x0011FF00);
+	ft_drawcircle(&img, combinetwodots(start, end), 0x0011FF00);
 	my_mlx_pixel_put(&img, start.x, start.y, 0x000000FF);
 	my_mlx_pixel_put(&img, end.x, end.y, 0x00FF0000);
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 5, 5);
@@ -45,21 +45,3 @@ int	close_win(int keycode, t_vars *vars)
 		mlx_destroy_window(vars->mlx, vars->win);
 	exit (0);
 }
-
-// t_dotfile	*readdotfile(int fd)
-// {
-// 	t_dotfile	file;
-// 	int			*splitdot;
-// 	char		*tosplit;
-	
-// 	while (1)
-// 	{
-// 		tosplit = get_next_line(fd);
-// 		splitdot = ft_atoi(ft_split(get_next_line(fd)));
-// 	}
-// }
-
-// t_dotfile	makedotlist()
-// {
-	
-// }

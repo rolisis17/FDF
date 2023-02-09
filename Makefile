@@ -1,5 +1,5 @@
 
-SRCS = fdf.c bitshifting.c drawing.c fdf_utils.c
+SRCS = fdf.c bitshifting.c drawing.c fdf_utils.c counters.c readfile.c
 OBJ = $(SRCS:.c=.o)
 NAME = fdf
 CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address

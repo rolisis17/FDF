@@ -6,14 +6,14 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:30:49 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/09 13:51:11 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/09 21:13:13 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 
-static void ft_drawcircle2(t_data *img, int r, int color)
+void	ft_drawcircle(t_data *img, t_dir mid, int r, int color)
 {
     int x;
 	int y;
@@ -24,14 +24,14 @@ static void ft_drawcircle2(t_data *img, int r, int color)
 	d = 3 - 2 * r;
     while (y >= x)
 	{
-        my_mlx_pixel_put(img, WIDTH_SIZE / 2 + x, HEIGHT_SIZE / 2 + y, color);
-        my_mlx_pixel_put(img, WIDTH_SIZE / 2 + x, HEIGHT_SIZE / 2 - y, color);
-        my_mlx_pixel_put(img, WIDTH_SIZE / 2 - x, HEIGHT_SIZE / 2 + y, color);
-        my_mlx_pixel_put(img, WIDTH_SIZE / 2 - x, HEIGHT_SIZE / 2 - y, color);
-        my_mlx_pixel_put(img, WIDTH_SIZE / 2 + y, HEIGHT_SIZE / 2 + x, color);
-        my_mlx_pixel_put(img, WIDTH_SIZE / 2 + y, HEIGHT_SIZE / 2 - x, color);
-        my_mlx_pixel_put(img, WIDTH_SIZE / 2 - y, HEIGHT_SIZE / 2 + x, color);
-        my_mlx_pixel_put(img, WIDTH_SIZE / 2 - y, HEIGHT_SIZE / 2 - x, color);
+        my_mlx_pixel_put(img, mid.x + x, mid.y + y, color);
+        my_mlx_pixel_put(img, mid.x + x, mid.y - y, color);
+        my_mlx_pixel_put(img, mid.x - x, mid.y + y, color);
+        my_mlx_pixel_put(img, mid.x - x, mid.y - y, color);
+        my_mlx_pixel_put(img, mid.x + y, mid.y + x, color);
+        my_mlx_pixel_put(img, mid.x + y, mid.y - x, color);
+        my_mlx_pixel_put(img, mid.x - y, mid.y + x, color);
+        my_mlx_pixel_put(img, mid.x - y, mid.y - x, color);
         if (d < 0)
             d = d + 4 * x + 6;
         else
@@ -43,14 +43,22 @@ static void ft_drawcircle2(t_data *img, int r, int color)
     }
 }
 
-void	ft_drawcircle(t_data *img, t_line line, int color)
+t_dir	findmidium(t_line line)
 {
-	double	length;
+	t_dir	medium;
+	
+	medium.x = ((line.x1 + line.x2) / 2);
+	medium.y = ((line.y1 + line.y2) / 2);
+	return (medium);
+}
 
-	length = sqrt((line.x2 - line.x1) * (line.x2 - line.x1) \
+double	findradius(t_line line)
+{
+	double	radius;
+	
+	radius = sqrt((line.x2 - line.x1) * (line.x2 - line.x1) \
 	+ (line.y2 - line.y1) * (line.y2 - line.y1));
-	//drawline(img, dot1, dot2, 0x0088FF00);
-	ft_drawcircle2(img, length/2, color);
+	return (radius);
 }
 
 void	drawmidlines(t_data *img)
