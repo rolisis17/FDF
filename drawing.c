@@ -6,12 +6,11 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:30:49 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/09 21:13:13 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:11:47 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
 
 void	ft_drawcircle(t_data *img, t_dir mid, int r, int color)
 {
@@ -54,10 +53,11 @@ t_dir	findmidium(t_line line)
 
 double	findradius(t_line line)
 {
-	double	radius;
-	
-	radius = sqrt((line.x2 - line.x1) * (line.x2 - line.x1) \
-	+ (line.y2 - line.y1) * (line.y2 - line.y1));
+	double	radius = 0;
+	if (line.x1)
+		;
+	// radius = sqrt((line.x2 - line.x1) * (line.x2 - line.x1) \
+	// + (line.y2 - line.y1) * (line.y2 - line.y1));
 	return (radius);
 }
 
@@ -66,15 +66,15 @@ void	drawmidlines(t_data *img)
 	t_dir	line1;
 	t_dir	line2;
 
-	line1.x = WIDTH_SIZE/2;
+	line1.x = WIDTH/2;
 	line1.y = 0;
-	line2.x = WIDTH_SIZE/2;
-	line2.y = HEIGHT_SIZE;
+	line2.x = WIDTH/2;
+	line2.y = HEIGHT;
 	my_mlx_line_put(img, line1, line2, 0x0000FF00);
-	line1.x = WIDTH_SIZE;
-	line1.y = HEIGHT_SIZE/2;
+	line1.x = WIDTH;
+	line1.y = HEIGHT/2;
 	line2.x = 0;
-	line2.y = HEIGHT_SIZE/2;
+	line2.y = HEIGHT/2;
 	my_mlx_line_put(img, line1, line2, 0x0000FF00);
 }
 

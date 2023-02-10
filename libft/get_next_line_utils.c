@@ -6,16 +6,16 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 18:25:37 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/07 12:36:39 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:51:51 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc_gnl(size_t nmemb, size_t size)
 {
 	void	*nmembp;
 	size_t	f;

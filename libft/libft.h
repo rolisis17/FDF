@@ -6,18 +6,21 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:14:30 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/07 12:23:43 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:47:44 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
+
 # include <stdio.h>
 # include <unistd.h>
 # include <bsd/string.h>
 # include <stdlib.h>
-# include "get_next_line.h"
 
 //			Part I
 
@@ -117,5 +120,21 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+//				FUCKING GNL
+
+char	*get_next_line(int fd);
+
+void	*ft_calloc_gnl(size_t nmemb, size_t size);
+
+char	*ft_strjoin_gnl(char *s1, char *s2, int f);
+
+int		ft_strlen_gnl(const char *s);
+
+int		gnl_check(char *line);
+
+char	*full_line(int fd, char *keep);
+
+char	*makeline(char *keep, int posnextline);
 
 #endif

@@ -6,14 +6,14 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 18:25:40 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/07 12:37:35 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:48:51 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "get_next_line.h"
+#include "libft.h"
 
 char	*get_next_line(int fd)
 {

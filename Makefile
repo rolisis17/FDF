@@ -11,10 +11,10 @@ H_SIZE?=
 W_SIZE?=
 
 .c.o:
-	$(CC) -Wall -Wextra -Werror $(W_SIZE_P) $(H_SIZE_P) -I/usr/include -Imlx_linux -O3 -c $< -o $(<:.c=.o)
+	$(CC) -Wall -Wextra -Werror -g $(W_SIZE_P) $(H_SIZE_P) -I/usr/include  -Imlx_linux -O3 -c $< -o $(<:.c=.o)
 
 $(NAME): $(OBJ)	
-	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -Llibft -lft -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 all: $(NAME)
 
