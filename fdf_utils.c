@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:51:12 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/10 18:07:43 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:30:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ t_line	combinetwodots(t_dir start, t_dir end)
 	line.x2 = end.x;
 	line.y2 = end.y;
 	return (line);
+}
+
+t_dir	makeadot(int x, int y)
+{
+	t_dir	coords;
+	
+	coords.x = x;
+	coords.y = y;
+	return (coords);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)

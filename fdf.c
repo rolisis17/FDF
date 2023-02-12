@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:12:17 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/10 18:44:25 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/12 15:02:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main()
 	// end.x = WIDTH/2 - 55;
 	// end.y = HEIGHT/2 + 100;
 	readdotfile(&file, fd);
+	put_coords(file);
 	// vars.mlx = mlx_init();
 	// vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "Hello world!");
 	// img.img = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
