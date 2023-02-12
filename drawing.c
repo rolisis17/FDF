@@ -51,15 +51,14 @@ t_dir	findmidium(t_line line)
 	return (medium);
 }
 
-double	findradius(t_line line)
-{
-	double	radius = 0;
-	if (line.x1)
-		;
-	// radius = sqrt((line.x2 - line.x1) * (line.x2 - line.x1) \
-	// + (line.y2 - line.y1) * (line.y2 - line.y1));
-	return (radius);
-}
+// double	findradius(t_line line)
+// {
+// 	double	radius = 0;
+// 	if (line.x1)
+// 	// radius = sqrt((line.x2 - line.x1) * (line.x2 - line.x1)
+// 	// + (line.y2 - line.y1) * (line.y2 - line.y1));
+// 	return (radius);
+// }
 
 void	drawmidlines(t_data *img)
 {

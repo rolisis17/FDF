@@ -9,7 +9,7 @@ ft_putnbr_fd.c
 BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
 GNL = get_next_line.c get_next_line_utils.c
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fPIE
 CC = cc
 NAME = libft.a
 OBJS = $(SRCS:.c=.o)

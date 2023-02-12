@@ -45,8 +45,8 @@ void put_coords(t_dotfile **file)
 	headx = heady;
 	while (heady)
 	{
-		headx->x = (EIXOX1 + (LENGTHX / (count_list_length(*file) - 2)) * (count_list_length(headx) - count_list_length(*file)));
-		headx->y = (EIXOY1 + (DEPTHY / (count_list_depth(*file) - 2)) * (count_list_depth(headx) - count_list_depth(*file)));
+		headx->x = (EIXOX1 + (LENGTHX / count_list_length(*file)) * (count_list_length(headx) - count_list_length(*file)));
+		headx->y = (EIXOY1 + (DEPTHY / count_list_depth(*file)) * (count_list_depth(headx) - count_list_depth(*file)));
 		if (headx->next)
 			headx = headx->next;
 		else

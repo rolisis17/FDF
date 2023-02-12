@@ -33,13 +33,13 @@ void	readdotfile(t_dotfile **file, int fd)
 void	makedotlist(t_dotfile **lst, char **splited)
 {
 	int			res;
-	int			col;
-	int			line;
+	// int			col;
+	// int			line;
 	int			f;
 
 	f = -1;
-	col = 0;
-	line = 0;
+	// col = 0;
+	// line = 0;
 	while (splited[++f])
 	{
 		res = ft_atoi(splited[f]);
