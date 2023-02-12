@@ -26,12 +26,12 @@
 # define THETA (M_PI / 180)
 # define CENTERX (WIDTH / 2)
 # define CENTERY (HEIGHT / 2)
-# define LENGTHX ((WIDTH / 100) * RATIO))
-# define DEPTHY ((HEIGHT / 100) * RATIO))
+# define LENGTHX ((WIDTH / 100) * RATIO)
+# define DEPTHY ((HEIGHT / 100) * RATIO)
 # define EIXOX1 (CENTERX - LENGTHX / 2)
 # define EIXOX2 (CENTERX + LENGTHX / 2)
-# define EIXOY1 (CENTERY - LENGTHY / 2)
-# define EIXOY2 (CENTERY + LENGTHY / 2)
+# define EIXOY1 (CENTERY - DEPTHY / 2)
+# define EIXOY2 (CENTERY + DEPTHY / 2)
 
 typedef struct	s_data {
 	void	*img;

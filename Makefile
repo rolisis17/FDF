@@ -1,5 +1,5 @@
 
-SRCS = fdf.c bitshifting.c drawing.c fdf_utils.c counters.c readfile.c
+SRCS = fdf.c bitshifting.c drawing.c fdf_utils.c counters.c readfile.c calccoords.c
 OBJ = $(SRCS:.c=.o)
 NAME = fdf
 CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
@@ -11,12 +11,13 @@ RATIO_P = $(addprefix -D RATIO=, $(RATIO))
 H_SIZE?=
 W_SIZE?=
 RATIO?=
+export HB_BUILD_CONTRIB_DYN="no"
 
 .c.o:
-	$(CC) -Wall -Wextra -Werror -g $(W_SIZE_P) $(H_SIZE_P) $(RATIO_P) -I/usr/include  -Imlx_linux -O3 -c $< -o $(<:.c=.o)
+	$(CC) -Wall -Wextra -Werror -fPIE -g $(W_SIZE_P) $(H_SIZE_P) $(RATIO_P) -I/usr/include  -Imlx_linux -O3 -c $< -o $(<:.c=.o)
 
 $(NAME): $(OBJ)	
-	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -Llibft -lft -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -Llibft -lft -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz  -o $(NAME)
 
 all: $(NAME)
 
