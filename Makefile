@@ -9,8 +9,8 @@ CC = cc
 H_SIZE_P = $(addprefix -D HEIGHT_SIZE=, $(H_SIZE))
 W_SIZE_P = $(addprefix -D WIDTH_SIZE=, $(W_SIZE))
 RATIO_P = $(addprefix -D RATIO=, $(RATIO))
-H_SIZE?=
 W_SIZE?=
+H_SIZE?=
 RATIO?=
 
 .c.o:

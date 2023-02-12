@@ -12,6 +12,7 @@
 
 #include "fdf.h"
 #include "libft/libft.h"
+#include <stdio.h>
 
 void	readdotfile(t_dotfile **file, int fd)
 {
@@ -29,6 +30,24 @@ void	readdotfile(t_dotfile **file, int fd)
 	}
 }
 
+void printdotlist(t_dotfile *file)
+{
+	t_dotfile	*temp1;
+	
+	temp1 = file;
+	while (temp1)
+	{
+		printf("%d", temp1->dot);
+		if (temp1->next)
+			temp1 = temp1->next;
+		else
+		{
+			printf("\n");
+			file = file->down;
+			temp1 = file;
+		}
+	}
+}
 
 void	makedotlist(t_dotfile **lst, char **splited)
 {
@@ -68,7 +87,7 @@ void	combinetwolist(t_dotfile **lst1, t_dotfile *lst2)
 {
 	t_dotfile	*temp1;
 	
-	temp1 = (*lst1);
+	temp1 = find_down_last(*lst1);
 	while (temp1 && lst2)
 	{
 		temp1->down = lst2;

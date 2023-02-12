@@ -30,6 +30,8 @@ int	count_list_length(t_dotfile	*lst)
 
 t_dotfile	*find_next_last(t_dotfile	*lst)
 {
+	if (!lst)
+		return (lst);
 	while (lst->next)
 		lst = lst->next;
 	return (lst);
@@ -37,6 +39,8 @@ t_dotfile	*find_next_last(t_dotfile	*lst)
 
 t_dotfile	*find_down_last(t_dotfile	*lst)
 {
+	if (!lst)
+		return (lst);
 	while (lst->down)
 		lst = lst->down;
 	return (lst);

@@ -69,12 +69,12 @@ void	drawmidlines(t_data *img)
 	line1.y = 0;
 	line2.x = WIDTH/2;
 	line2.y = HEIGHT;
-	my_mlx_line_put(img, line1, line2, 0x0000FF00);
+	my_mlx_line_put(img, line1, line2, 0x00FF0000);
 	line1.x = WIDTH;
 	line1.y = HEIGHT/2;
 	line2.x = 0;
 	line2.y = HEIGHT/2;
-	my_mlx_line_put(img, line1, line2, 0x0000FF00);
+	my_mlx_line_put(img, line1, line2, 0x00FF0000);
 }
 
 static void	my_mlx_line_put2(t_data *img, t_line line, t_line line2, int color)

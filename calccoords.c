@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdio.h>
 
 // void calccoords(t_dotfile **file)
 // {
@@ -40,24 +41,40 @@ void put_coords(t_dotfile **file)
 {
 	t_dotfile	*headx;
 	t_dotfile	*heady;
-	
+	int			f;
+	int			row;
+	int			col;
+
+
+	row = 1;
+	col = 1;
+	f = 0;
 	heady = (*file);
 	headx = heady;
 	while (heady)
 	{
-		headx->x = (EIXOX1 + (LENGTHX / count_list_length(*file)) * (count_list_length(headx) - count_list_length(*file)));
-		headx->y = (EIXOY1 + (DEPTHY / count_list_depth(*file)) * (count_list_depth(headx) - count_list_depth(*file)));
+		headx->x = (EIXOX1 - (LENGTHX / (count_list_length(*file) - 1)) * (count_list_length(headx) - count_list_length(*file)) - (0.3 *headx->dot));
+		headx->y = (EIXOY1 - (DEPTHY / (count_list_depth(*file) - 1)) * (count_list_depth(headx) - count_list_depth(*file)) - (3 *headx->dot));
+		// printf("%d%d x%d - %d\n",row, col, f, headx->x);
+		// printf("%d%d y%d - %d\n",row, col, f, headx->y);
+		// printf("\n");
 		if (headx->next)
+		{
 			headx = headx->next;
+			col++;
+		}
 		else
 		{
+			row++;
+			col = 1;
 			heady = heady->down;
 			headx = heady;
 		}
+		f++;
 	}
 }
 
-void rotateList(t_dotfile **file, int degrees)
+void rotatelistx(t_dotfile **file, int degrees)
 {
 	t_dotfile		*headx;
 	t_dotfile		*heady;
@@ -66,23 +83,37 @@ void rotateList(t_dotfile **file, int degrees)
 
 	heady = (*file);
 	headx = heady;
-    while (heady)
+	while (heady)
 	{
-        if (degrees > 0)
-		{
-            x_rot = CENTERX + (headx->x - CENTERX) * cos(THETA * degrees) + (headx->y - CENTERY) * sin(THETA * degrees);
-            y_rot = CENTERY + (headx->y - CENTERY) * cos(THETA * degrees) - (headx->x - CENTERX) * sin(THETA * degrees);
-        }
-		else
-		{
-            x_rot = CENTERX + (headx->x - CENTERX) * cos(THETA * degrees) - (headx->y - CENTERY) * sin(THETA * degrees);
-            y_rot = CENTERY + (headx->y - CENTERY) * cos(THETA * degrees) + (headx->x - CENTERX) * sin(THETA * degrees);
-        }
-        headx->x = x_rot;
-        headx->y = y_rot;
-        if (headx->next)
+		x_rot = ((headx->x - CENTERX) * cos(THETA * degrees) - (headx->y - CENTERY) * sin(THETA * degrees) + CENTERX);
+		y_rot = ((headx->y - CENTERY) * cos(THETA * degrees) + (headx->x - CENTERX) * sin(THETA * degrees) + CENTERY);
+		headx->x = x_rot;
+		headx->y = y_rot;
+		if (headx)
 			headx = headx->next;
-		if (!(headx->next))
+		if (!(headx))
+		{
+			heady = heady->down;
+			headx = heady;
+		}
+	}
+}
+
+void rotatelisty(t_dotfile **file, int degrees)
+{
+	t_dotfile		*headx;
+	t_dotfile		*heady;
+	static double	y_rot;
+
+	heady = (*file);
+	headx = heady;
+	while (heady)
+	{
+		y_rot = (headx->y * cos(THETA * degrees));
+		headx->y = y_rot;
+		if (headx)
+			headx = headx->next;
+		if (!(headx))
 		{
 			heady = heady->down;
 			headx = heady;

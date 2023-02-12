@@ -19,8 +19,8 @@
 # include <stdio.h>
 # include <math.h>
 
-# define WIDTH 800
-# define HEIGHT 400
+# define WIDTH 1920
+# define HEIGHT 1080
 # define RATIO 40
 # define WAY 1
 # define THETA (M_PI / 180)
@@ -75,6 +75,7 @@ int			get_g(int trgb);
 int			get_r(int trgb);
 int			get_t(int trgb);
 int			close_win(int keycode, t_vars *vars);
+int			close_win2(t_vars *vars);
 void		my_mlx_line_put(t_data *data, t_dir start, t_dir end, int color);
 void		ft_drawcircle(t_data *img, t_dir mid, int r, int color);
 void		drawmidlines(t_data *img);
@@ -91,8 +92,10 @@ void		readdotfile(t_dotfile **file, int fd);
 void		makedotlist(t_dotfile **file, char **splited);
 void		combinetwolist(t_dotfile **lst1, t_dotfile *lst2);
 void		put_coords(t_dotfile **file);
-void		rotateList(t_dotfile **file, int degrees);
-void	drawfilelines(t_dotfile *file, t_data *img, int color);
+void		rotatelistx(t_dotfile **file, int degrees);
+void		drawfilelines(t_dotfile *file, t_data *img, int color);
+void		printdotlist(t_dotfile *file);
+void		rotatelisty(t_dotfile **file, int degrees);
 
 
 #endif
