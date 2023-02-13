@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:04 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/10 19:56:14 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:33:11 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void printdotlist(t_dotfile *file)
 	temp1 = file;
 	while (temp1)
 	{
-		printf("%d", temp1->dot);
+		// printf("%d", temp1->dot);
 		if (temp1->next)
 			temp1 = temp1->next;
 		else
 		{
-			printf("\n");
+			// printf("\n");
 			file = file->down;
 			temp1 = file;
 		}

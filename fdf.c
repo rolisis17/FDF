@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:12:17 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/12 15:02:46 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/13 20:19:00 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,12 @@ int	main()
 	img.img = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	// my_mlx_line_put(&img, start, end, 0x009090FF);
-	// rotatelistx(&file, -10);
-	rotatelisty(&file, 100);
-	drawmidlines(&img);
-	drawfilelines(file, &img, 0x009900FF);
-	printdotlist(file);
+	rotatelistmid(&file, 20);
+	rotatelisty(&file, 40);
+	// rotatelistx(&file, 10);
+	// drawmidlines(&img);
+	drawfilelines(file, &img);
+	// printdotlist(file);
 	printf("%d\n", count_list_length(file));
 	printf("%d\n", count_list_depth(file));
 	// ft_drawcircle(&img, start, findradius(combinetwodots(start, end)), 0x0011FF00);

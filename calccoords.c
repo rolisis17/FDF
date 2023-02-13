@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calccoords.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:45:11 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/12 14:15:24 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/13 18:31:45 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,40 +41,40 @@ void put_coords(t_dotfile **file)
 {
 	t_dotfile	*headx;
 	t_dotfile	*heady;
-	int			f;
-	int			row;
+	int			length;
+	int			depth;
+	int			totalcol;
+	int			totalrow;
 	int			col;
+	int			row;
+	double			x;
+	double			y;
 
-
-	row = 1;
-	col = 1;
-	f = 0;
 	heady = (*file);
 	headx = heady;
+	length = (WIDTH / 100) * RATIO;
+	depth = (HEIGHT / 100) * RATIO;
+	totalcol = count_list_length(*file);
+	totalrow = count_list_depth(*file);
 	while (heady)
 	{
-		headx->x = (EIXOX1 - (LENGTHX / (count_list_length(*file) - 1)) * (count_list_length(headx) - count_list_length(*file)) - (0.3 *headx->dot));
-		headx->y = (EIXOY1 - (DEPTHY / (count_list_depth(*file) - 1)) * (count_list_depth(headx) - count_list_depth(*file)) - (3 *headx->dot));
-		// printf("%d%d x%d - %d\n",row, col, f, headx->x);
-		// printf("%d%d y%d - %d\n",row, col, f, headx->y);
-		// printf("\n");
+		col = totalcol - count_list_length(headx);
+		row = totalrow - count_list_depth(headx);
+		x = ((WIDTH / 2) - (length / 2)) + (length / (totalcol)) * col;
+		y = ((HEIGHT / 2) - (depth / 2)) + (depth / (totalrow)) * row;
+		headx->x = x;
+		headx->y = y;
 		if (headx->next)
-		{
 			headx = headx->next;
-			col++;
-		}
 		else
 		{
-			row++;
-			col = 1;
 			heady = heady->down;
 			headx = heady;
 		}
-		f++;
 	}
 }
 
-void rotatelistx(t_dotfile **file, int degrees)
+void rotatelistmid(t_dotfile **file, int degrees)
 {
 	t_dotfile		*headx;
 	t_dotfile		*heady;
@@ -109,11 +109,33 @@ void rotatelisty(t_dotfile **file, int degrees)
 	headx = heady;
 	while (heady)
 	{
-		y_rot = (headx->y * cos(THETA * degrees));
+		y_rot = ((headx->y - CENTERY) * cos(THETA * degrees) + CENTERY - (SIZE * headx->dot));
 		headx->y = y_rot;
 		if (headx)
 			headx = headx->next;
 		if (!(headx))
+		{
+			heady = heady->down;
+			headx = heady;
+		}
+    }
+}
+
+void rotatelistx(t_dotfile **file, int degrees)
+{
+	t_dotfile		*headx;
+	t_dotfile		*heady;
+	static double	x_rot;
+
+	heady = (*file);
+	headx = heady;
+	while (heady)
+	{
+		x_rot = (CENTERX / 2 - headx->x ) * cos(THETA * degrees) + CENTERX - (SIZE *headx->dot);
+		headx->x = x_rot;
+		if (headx)
+			headx = headx->next;
+		else
 		{
 			heady = heady->down;
 			headx = heady;
