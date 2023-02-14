@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:30:49 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/13 20:51:03 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/14 21:10:18 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,26 @@ void	my_mlx_line_put2(t_data *img, t_line line, t_line line2)
 {
     int err;
 	int	e2;
-	static int	r;
+	static int cor;
+	static int size;
 
 	err = (line2.x1 > line2.y1 ? line2.x1 : -line2.y1) / 2;
     while (1)
 	{
-        my_mlx_pixel_put(img, line.x1, line.y1, create_trgb(255, (0 + r), 33, (128)));
+        my_mlx_pixel_put(img, line.x1, line.y1, create_trgb(255, 128 + cor, 0, 255));
+		if (size > line.size)
+		{
+			size--;
+			cor -= 9;
+		}
+		if (size < line.size)
+		{
+			size++;
+			cor += 9;
+		}
         if (line.x1 == line.x2 && line.y1 == line.y2)
 			break;
         e2 = err;
-		if (line.size < line2.size || line.size > line2.size)
-			r = r == 255 ? r + 1 * line.size/10 : r - 1 * line.size/10;
-		if (line.size == line2.size)
-		{}
 		if (e2 > -line2.x1)
 		{
 			err -= line2.y1;
@@ -107,7 +114,35 @@ void	my_mlx_line_put2(t_data *img, t_line line, t_line line2)
     }
 }
 
+// void	my_mlx_line_put2(t_data *img, t_line line, t_line line2)
+// {
+//     int err;
+// 	int	e2;
+// 	// static int	r;
 
+// 	err = (line2.x1 > line2.y1 ? line2.x1 : -line2.y1) / 2;
+//     while (1)
+// 	{
+//         my_mlx_pixel_put(img, line.x1, line.y1, 0xFF);
+//         if (line.x1 == line.x2 && line.y1 == line.y2)
+// 			break;
+//         e2 = err;
+// 		// if (line.size < line2.size || line.size > line2.size)
+// 		// 	r = r == 255 ? r + 1 * line.size/10 : r - 1 * line.size/10;
+// 		if (line.size == line2.size)
+// 		{}
+// 		if (e2 > -line2.x1)
+// 		{
+// 			err -= line2.y1;
+// 			line.x1 += line2.x2;
+// 		}
+//         if (e2 < line2.y1)
+// 		{
+// 			err += line2.x1;
+// 			line.y1 += line2.y2;
+// 		}
+//     }
+// }
 
 void	drawfilelines(t_dotfile *file, t_data *img)
 {
@@ -130,6 +165,14 @@ void	drawfilelines(t_dotfile *file, t_data *img)
 	}
 }
 
+// int	calc_size_dot(int size1, int size2)
+// {
+// 	if (size1 > size2)
+// 		return (size2 - size1);
+// 	if (size1 < size2)
+// 		return (size2 - size1);
+// }
+
 void	my_mlx_line_put(t_data *img, t_dir start, t_dir end, int size1, int size2)
 {
     t_line	line;
@@ -139,8 +182,8 @@ void	my_mlx_line_put(t_data *img, t_dir start, t_dir end, int size1, int size2)
 	line.y1 = start.y;
 	line.x2 = end.x;
 	line.y2 = end.y;
-	line.size = size1;
-	line2.size = size2;
+	line.size = size2;
+	line2.size = size1;
 	line2.x1 = abs(line.x2 - line.x1);
 	line2.y1 = abs(line.y2 - line.y1);
 	line2.x2 = line.x1 < line.x2 ? 1 : -1;

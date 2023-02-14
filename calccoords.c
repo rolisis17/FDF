@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:45:11 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/13 18:31:45 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/14 19:46:43 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,15 +125,18 @@ void rotatelistx(t_dotfile **file, int degrees)
 {
 	t_dotfile		*headx;
 	t_dotfile		*heady;
-	static double	x_rot;
+	double	x_rot;
 
 	heady = (*file);
 	headx = heady;
 	while (heady)
 	{
-		x_rot = (CENTERX / 2 - headx->x ) * cos(THETA * degrees) + CENTERX - (SIZE *headx->dot);
-		headx->x = x_rot;
-		if (headx)
+		x_rot = (headx->x - CENTERX);
+		x_rot = x_rot * cos(THETA * degrees);
+		x_rot = x_rot + CENTERX - (SIZE * headx->dot);
+		printf("%f", x_rot);
+		// headx->x = x_rot;
+		if (headx && degrees)
 			headx = headx->next;
 		else
 		{

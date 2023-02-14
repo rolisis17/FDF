@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:12:17 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/13 20:19:00 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/14 21:05:51 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	main()
 	img.img = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	// my_mlx_line_put(&img, start, end, 0x009090FF);
-	rotatelistmid(&file, 20);
-	rotatelisty(&file, 40);
-	// rotatelistx(&file, 10);
+	rotatelistmid(&file, 40);
+	rotatelisty(&file, 50);
+	// rotatelistx(&file, 1);
 	// drawmidlines(&img);
 	drawfilelines(file, &img);
 	// printdotlist(file);
@@ -51,6 +51,18 @@ int	main()
 	mlx_loop(vars.mlx);
 }
 
+void	choose_rotate(t_dotfile **file, int rotatecode)
+{
+	if (rotatecode == 40)
+		rotatelisty(file, -10);
+	else if (rotatecode == 41)
+		rotatelisty(file, 10);
+	else if (rotatecode == 50)
+		rotatelistmid(file, -10);
+	else if (rotatecode == 51)
+		rotatelistmid(file, 10);
+}
+
 int	close_win(int keycode, t_vars *vars)
 {
 	if (keycode == 65307)
@@ -58,6 +70,14 @@ int	close_win(int keycode, t_vars *vars)
 		mlx_destroy_window(vars->mlx, vars->win);
 		exit (0);
 	}
+	if (keycode == 65362)
+		return (40);
+	if (keycode == 65364)
+		return (41);
+	if (keycode == 65430)
+		return (50);
+	if (keycode == 65363)
+		return (51);
 	return (0);
 }
 

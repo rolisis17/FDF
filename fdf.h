@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:12:27 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/13 20:22:32 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:39:30 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void		drawfilelines(t_dotfile *file, t_data *img);
 void		printdotlist(t_dotfile *file);
 void		rotatelisty(t_dotfile **file, int degrees);
 void		rotatelistx(t_dotfile **file, int degrees);
+void		choose_rotate(t_dotfile **file, int rotatecode);
 
 
 #endif
