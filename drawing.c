@@ -51,14 +51,14 @@ t_dir	findmidium(t_line line)
 	return (medium);
 }
 
-// double	findradius(t_line line)
-// {
-// 	double	radius = 0;
-// 	if (line.x1)
-// 	// radius = sqrt((line.x2 - line.x1) * (line.x2 - line.x1)
-// 	// + (line.y2 - line.y1) * (line.y2 - line.y1));
-// 	return (radius);
-// }
+double	findradius(t_line line)
+{
+	double	radius = 0;
+	if (line.x1)
+	radius = sqrt((line.x2 - line.x1) * (line.x2 - line.x1)
+	+ (line.y2 - line.y1) * (line.y2 - line.y1));
+	return (radius);
+}
 
 void	drawmidlines(t_data *img)
 {
@@ -82,21 +82,19 @@ void	my_mlx_line_put2(t_data *img, t_line line, t_line line2)
     int err;
 	int	e2;
 	static int cor;
-	static int size;
 
+	cor = 0;
 	err = (line2.x1 > line2.y1 ? line2.x1 : -line2.y1) / 2;
     while (1)
 	{
-        my_mlx_pixel_put(img, line.x1, line.y1, create_trgb(255, 128 + cor, 0, 255));
-		if (size > line.size)
+        my_mlx_pixel_put(img, line.x1, line.y1, create_trgb(255, 1 + cor, 1 + cor, 255));
+		if (line.size > line2.size)
 		{
-			size--;
-			cor -= 9;
+			cor += 1 * line.size;
 		}
-		if (size < line.size)
+		if (line.size < line2.size)
 		{
-			size++;
-			cor += 9;
+			cor -= 1 * line.size;
 		}
         if (line.x1 == line.x2 && line.y1 == line.y2)
 			break;
@@ -182,6 +180,7 @@ void	my_mlx_line_put(t_data *img, t_dir start, t_dir end, int size1, int size2)
 	line.y1 = start.y;
 	line.x2 = end.x;
 	line.y2 = end.y;
+	line.radius = findradius(line); // radius / 255 and every time that new radius is 1 / 255 lower, the color changes.
 	line.size = size2;
 	line2.size = size1;
 	line2.x1 = abs(line.x2 - line.x1);
