@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:30:49 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/14 21:10:18 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:04:05 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,17 @@ void	my_mlx_line_put2(t_data *img, t_line line, t_line line2)
 {
     int err;
 	int	e2;
-	static int cor;
+	double cor;
 
-	cor = 0;
 	err = (line2.x1 > line2.y1 ? line2.x1 : -line2.y1) / 2;
     while (1)
 	{
-        my_mlx_pixel_put(img, line.x1, line.y1, create_trgb(255, 1 + cor, 1 + cor, 255));
-		if (line.size > line2.size)
-		{
-			cor += 1 * line.size;
-		}
-		if (line.size < line2.size)
-		{
-			cor -= 1 * line.size;
-		}
+		line2.radius = findradius(line);
+		findcolor(line.size, &cor);
+		// printf("%f\n", cor);
+		if (line.size != line2.size)
+			changecolor(&line, &line2, &cor);
+        my_mlx_pixel_put(img, line.x1, line.y1, create_trgb(255, 128 + cor, 200, 500 - cor));
         if (line.x1 == line.x2 && line.y1 == line.y2)
 			break;
         e2 = err;
@@ -110,6 +106,31 @@ void	my_mlx_line_put2(t_data *img, t_line line, t_line line2)
 			line.y1 += line2.y2;
 		}
     }
+}
+
+void	findcolor(int size, double *cor)
+{
+	if (size == 0)
+		*cor = 0;
+	else
+		*cor = (128 / 15) * size;
+}
+
+void	changecolor(t_line *line, t_line *line2, double *cor)
+{
+	double	size;
+	double	corratio;
+	
+	corratio = ((128 / (*line).radius) / 15);
+	size = (*line).radius - (*line2).radius;
+	if ((*line).radius != (*line2).radius)
+	{
+		if ((*line).size > (*line2).size)
+			*cor -= corratio * (*line).size * (size);
+		if ((*line).size < (*line2).size)
+			*cor += corratio * (*line2).size * (size);
+	}
+
 }
 
 // void	my_mlx_line_put2(t_data *img, t_line line, t_line line2)
@@ -142,25 +163,29 @@ void	my_mlx_line_put2(t_data *img, t_line line, t_line line2)
 //     }
 // }
 
-void	drawfilelines(t_dotfile *file, t_data *img)
+void	drawfilelines(t_vars *vars, int lock)
 {
 	t_dotfile	*temp;
+	t_dotfile	*temp2;
 
-	temp = file;
+	temp = vars->file;
+	temp2 = temp;
 	while (temp)
 	{
-		if (temp->next)
-			my_mlx_line_put(img, makeadot(temp->x, temp->y), makeadot(temp->next->x, temp->next->y), temp->dot, temp->next->dot);
-		if (temp->down)
-			my_mlx_line_put(img, makeadot(temp->x, temp->y), makeadot(temp->down->x, temp->down->y), temp->dot, temp->down->dot);
+		if (temp->next && lock == 1)
+			my_mlx_line_put(vars->img, makeadot(temp->x, temp->y), makeadot(temp->next->x, temp->next->y), temp->dot, temp->next->dot);
+		if (temp->down && lock == 2)
+			my_mlx_line_put(vars->img, makeadot(temp->x, temp->y), makeadot(temp->down->x, temp->down->y), temp->dot, temp->down->dot);
 		if (temp->next)
 			temp = temp->next;
 		else
 		{
-			file = file->down;
-			temp = file;
+			temp2 = temp2->down;
+			temp = temp2;
 		}
 	}
+	if (lock == 1)
+		drawfilelines(vars, 2);
 }
 
 // int	calc_size_dot(int size1, int size2)
@@ -180,12 +205,13 @@ void	my_mlx_line_put(t_data *img, t_dir start, t_dir end, int size1, int size2)
 	line.y1 = start.y;
 	line.x2 = end.x;
 	line.y2 = end.y;
-	line.radius = findradius(line); // radius / 255 and every time that new radius is 1 / 255 lower, the color changes.
-	line.size = size2;
-	line2.size = size1;
+	line.size = size1;
+	line2.size = size2;
+	line.radius = findradius(line);
 	line2.x1 = abs(line.x2 - line.x1);
 	line2.y1 = abs(line.y2 - line.y1);
 	line2.x2 = line.x1 < line.x2 ? 1 : -1;
 	line2.y2 = line.y1 < line.y2 ? 1 : -1;
+	line2.radius = findradius(line2);
 	my_mlx_line_put2(img, line, line2);
 }
