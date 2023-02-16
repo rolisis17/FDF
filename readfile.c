@@ -37,12 +37,13 @@ void printdotlist(t_dotfile *file)
 	temp1 = file;
 	while (temp1)
 	{
-		// printf("%d", temp1->dot);
+		printf("%f, ", temp1->x);
+		printf("%f. ", temp1->y);
 		if (temp1->next)
 			temp1 = temp1->next;
 		else
 		{
-			// printf("\n");
+			printf("\n");
 			file = file->down;
 			temp1 = file;
 		}

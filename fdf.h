@@ -19,10 +19,10 @@
 # include <stdio.h>
 # include <math.h>
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1080
+# define HEIGHT 720
 # define RATIO 60
-# define SIZE 15
+# define SIZE 5
 # define THETA (M_PI / 180)
 # define CENTERX (WIDTH / 2)
 # define CENTERY (HEIGHT / 2)

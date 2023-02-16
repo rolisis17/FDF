@@ -91,7 +91,7 @@ void	my_mlx_line_put2(t_data *img, t_line line, t_line line2)
 		// printf("%f\n", cor);
 		if (line.size != line2.size)
 			changecolor(&line, &line2, &cor);
-        my_mlx_pixel_put(img, line.x1, line.y1, create_trgb(255, 128 + cor, 200, 500 - cor));
+        my_mlx_pixel_put(img, line.x1, line.y1, create_trgb(255, 118 + cor, 200, 255));
         if (line.x1 == line.x2 && line.y1 == line.y2)
 			break;
         e2 = err;
@@ -202,9 +202,9 @@ void	my_mlx_line_put(t_data *img, t_dir start, t_dir end, int size1, int size2)
     t_line	line2;
 
 	line.x1 = start.x;
-	line.y1 = start.y;
+	line.y1 = start.y + (SIZE * size1);
 	line.x2 = end.x;
-	line.y2 = end.y;
+	line.y2 = end.y + (SIZE * size2);
 	line.size = size1;
 	line2.size = size2;
 	line.radius = findradius(line);

@@ -39,7 +39,7 @@ void put_coords(t_dotfile **file)
 		x = ((WIDTH / 2) - (length / 2)) + (length / (totalcol)) * col;
 		y = ((HEIGHT / 2) - (depth / 2)) + (depth / (totalrow)) * row;
 		headx->x = x;
-		headx->y = y;
+		headx->y = y - (SIZE * headx->dot);
 		if (headx->next)
 			headx = headx->next;
 		else
@@ -79,20 +79,32 @@ void rotatelisty(t_vars *vars, int degrees)
 {
 	t_dotfile		*headx;
 	t_dotfile		*heady;
+	t_dotfile		*varsheadx;
+	t_dotfile		*varsheady;
 	static double	y_rot;
+	static t_dotfile	*file;
 
-	heady = vars->file;
+	if (!file)
+		file = vars->file;
+	heady = file;
 	headx = heady;
-	while (heady)
+	varsheady = vars->file;
+	varsheadx = varsheady;
+	while (heady && varsheady)
 	{
-		y_rot = ((headx->y - CENTERY) * cos(THETA * degrees) + CENTERY - (SIZE * headx->dot));
-		headx->y = y_rot;
-		if (headx)
+		y_rot = (((headx->y - CENTERY) * cos(THETA * degrees)) + CENTERY );
+		varsheadx->y = y_rot;
+		if (headx && varsheadx)
+		{
 			headx = headx->next;
-		if (!(headx))
+			varsheadx = varsheadx->next;
+		}
+		if (!(headx) && !(varsheadx))
 		{
 			heady = heady->down;
 			headx = heady;
+			varsheady = varsheady->down;
+			varsheadx = varsheady;
 		}
     }
 }
@@ -107,12 +119,9 @@ void rotatelistx(t_vars *vars, int degrees)
 	headx = heady;
 	while (heady)
 	{
-		x_rot = (headx->x - CENTERX);
-		x_rot = x_rot * cos(THETA * degrees);
-		x_rot = x_rot + CENTERX - (SIZE * headx->dot);
-		printf("%f", x_rot);
-		// headx->x = x_rot;
-		if (headx && degrees)
+		x_rot = (((headx->x - CENTERY) * cos(THETA * degrees)) + CENTERY);
+		headx->x = x_rot;
+		if (headx)
 			headx = headx->next;
 		else
 		{

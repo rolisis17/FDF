@@ -22,7 +22,7 @@ int	main()
 	// t_dir	start;
 	// t_dir	end;
 	t_dotfile	*file = NULL;
-	int fd = open("pyramide.fdf", O_RDONLY);
+	int fd = open("42.fdf", O_RDONLY);
 
 	vars = (t_vars *)malloc (sizeof(t_vars));
 	readdotfile(&file, fd);
@@ -34,12 +34,14 @@ int	main()
 	vars->file = file;
 	vars->img = &img;
 	// drawfilelines(vars, 1);
-	// rotatelistmid(vars, 60);
-	// rotatelisty(vars, 60);
 	// mlx_put_image_to_window(vars->mlx, vars->win, img.img, 5, 5);
 	print_loop(vars);
-	mlx_hook(vars->win, 2, 1L<<0, close_win, &vars);
-	mlx_hook(vars->win, 17, 1L<<2, close_win2, &vars);
+	// rotatelistmid(vars, -60);
+	rotatelisty(vars, 1);
+
+	print_loop(vars);
+	mlx_hook(vars->win, 2, 1L<<0, close_win, vars);
+	mlx_hook(vars->win, 17, 1L<<2, close_win2, vars);
 	mlx_loop(vars->mlx);
 }
 
@@ -57,26 +59,39 @@ int	main()
 
 int	close_win(int keycode, t_vars *vars)
 {
-	
-	if (keycode == 65307)
+	if (keycode == 100)
+	{
+		rotatelisty(vars, 10);
+		print_loop(vars);
+	}
+	else if (keycode == 97)
+	{
+		rotatelisty(vars, -10);
+		print_loop(vars);
+	}
+	else if (keycode == 119)
+	{
+		rotatelistmid(vars, -1);
+		print_loop(vars);
+	}
+	else if (keycode == 115)
+	{
+		rotatelistmid(vars, 1);
+		print_loop(vars);
+	}
+	else if (keycode == 65307)
 	{
 		mlx_destroy_window(vars->mlx, vars->win);
 		exit (0);
 	}
-	if (keycode == 100)
-		rotatelisty(vars, -1);
-	if (keycode == 97)
-		rotatelisty(vars, 1);
-	if (keycode == 119)
-		rotatelistmid(vars, -1);
-	if (keycode == 115)
-		rotatelistmid(vars, 1);
-	print_loop(vars);
-	return (0);
+	return (1);
 }
 
 void print_loop(t_vars *vars)
 {
+	// printdotlist((*vars->file));
+	// printf("\n");
+	// printf("\n");
 	ft_bzero(vars->img->addr, sizeof(vars->img->bpp) * WIDTH * HEIGHT);
 	drawfilelines(vars, 1);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 5, 5);
