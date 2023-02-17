@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:04 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/17 17:09:59 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:19:20 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	readdotfile(t_dotfile **file, int fd)
 	t_dotfile	*new;
 	
 	new = NULL;
-	if ((*file))
+	if (*file)
 		free (*file);
 	line = get_next_line(fd);
 	while (line)
@@ -30,7 +30,6 @@ void	readdotfile(t_dotfile **file, int fd)
 		line = get_next_line(fd);
 		new = NULL;
 	}
-	free (line);
 }
 
 void printdotlist(t_dotfile *file)

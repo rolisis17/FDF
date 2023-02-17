@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:12:27 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/17 19:05:56 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:14:33 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,33 +19,19 @@
 # include <stdio.h>
 # include <math.h>
 
-# define WIDTH 1080
-# define HEIGHT 720
-# define RATIO 60
-# define SIZE 5
-# define THETA (M_PI / 180)
-# define CENTERX (WIDTH / 2)
-# define CENTERY (HEIGHT / 2)
-# define LENGTHX ((WIDTH / 100) * RATIO)
-# define DEPTHY ((HEIGHT / 100) * RATIO)
-# define EIXOX1 (CENTERX - ((LENGTHX) / 2))
-# define EIXOX2 (CENTERX + ((LENGTHX) / 2))
-# define EIXOY1 (CENTERY - ((DEPTHY) / 2))
-# define EIXOY2 (CENTERY + ((DEPTHY) / 2))
-
 typedef struct	s_calc {
-	double	th;
-	int		width;
-	int		height;
-	int		ratio;
-	int		size;
-	int		cx;
-	int		cy;
-	int		len;
-	int		dep;
-	int		dgm;
-	int		dgy;
-	int		dgx;
+	int	width;
+	int	height;
+	int	ratio;
+	int	size;
+	int	th;
+	int	cx;
+	int	cy;
+	int	lx;
+	int	dy;
+	int	dgm;
+	int	dgy;
+	int	dgx;
 }				t_calc;
 
 typedef struct	s_data {
@@ -85,10 +71,10 @@ typedef struct	s_vars {
 	void		*win;
 	t_dotfile	*file;
 	t_data		*img;
-	t_calc		calc;
+	t_calc		*calc;
 }				t_vars;
 
-void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void		my_mlx_pixel_put(t_vars *vars, int x, int y, int color);
 int			create_trgb(int t, int r, int g, int b);
 int			get_b(int trgb);
 int			get_g(int trgb);
@@ -96,8 +82,8 @@ int			get_r(int trgb);
 int			get_t(int trgb);
 int			close_win(int keycode, t_vars *vars);
 int			close_win2(t_vars *vars);
-void		my_mlx_line_put(t_data *data, t_dir start, t_dir end, int size1, int size2);
-void		my_mlx_line_put2(t_data *img, t_line line, t_line line2);
+void		my_mlx_line_put(t_vars *vars, t_dir start, t_dir end, int size1, int size2);
+void		my_mlx_line_put2(t_vars *vars, t_line line, t_line line2);
 void		ft_drawcircle(t_data *img, t_dir mid, int r, int color);
 void		drawmidlines(t_data *img);
 t_dir		findmidium(t_line line);
@@ -112,8 +98,8 @@ t_dotfile	*makenode(int dot);
 void		readdotfile(t_dotfile **file, int fd);
 void		makedotlist(t_dotfile **file, char **splited);
 void		combinetwolist(t_dotfile **lst1, t_dotfile *lst2);
-void		put_coords(t_dotfile **file, t_calc ca);
-void		put_calcs(t_calc *calc);
+void		put_coords(t_dotfile **file, t_calc *calc);
+void		put_calcs(t_vars *vars);
 void		rotatelistmid(t_vars *vars);
 void		drawfilelines(t_vars *vars, int lock);
 void		printdotlist(t_dotfile *file);
@@ -123,7 +109,5 @@ void		choose_rotate(t_dotfile **file, int rotatecode);
 void		changecolor(t_line *line, t_line *line2, double *cor);
 void		findcolor(int size, double *cor);
 void		print_loop(t_vars *vars);
-void		next_dot_node(t_dotfile **findow, t_dotfile **finex);
-void		rotate_all(t_vars *vars);
 
 #endif

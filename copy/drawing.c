@@ -6,41 +6,41 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:30:49 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/17 20:46:34 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/17 20:44:33 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_drawcircle(t_data *img, t_dir mid, int r, int color)
-{
-    int x;
-	int y;
-    int d;
+// void	ft_drawcircle(t_data *img, t_dir mid, int r, int color)
+// {
+//     int x;
+// 	int y;
+//     int d;
 	
-	x = 0;
-	y = r;
-	d = 3 - 2 * r;
-    while (y >= x)
-	{
-        my_mlx_pixel_put(img, mid.x + x, mid.y + y, color);
-        my_mlx_pixel_put(img, mid.x + x, mid.y - y, color);
-        my_mlx_pixel_put(img, mid.x - x, mid.y + y, color);
-        my_mlx_pixel_put(img, mid.x - x, mid.y - y, color);
-        my_mlx_pixel_put(img, mid.x + y, mid.y + x, color);
-        my_mlx_pixel_put(img, mid.x + y, mid.y - x, color);
-        my_mlx_pixel_put(img, mid.x - y, mid.y + x, color);
-        my_mlx_pixel_put(img, mid.x - y, mid.y - x, color);
-        if (d < 0)
-            d = d + 4 * x + 6;
-        else
-		{
-            d = d + 4 * (x - y) + 10;
-            y--;
-        }
-        x++;
-    }
-}
+// 	x = 0;
+// 	y = r;
+// 	d = 3 - 2 * r;
+//     while (y >= x)
+// 	{
+//         my_mlx_pixel_put(img, mid.x + x, mid.y + y, color);
+//         my_mlx_pixel_put(img, mid.x + x, mid.y - y, color);
+//         my_mlx_pixel_put(img, mid.x - x, mid.y + y, color);
+//         my_mlx_pixel_put(img, mid.x - x, mid.y - y, color);
+//         my_mlx_pixel_put(img, mid.x + y, mid.y + x, color);
+//         my_mlx_pixel_put(img, mid.x + y, mid.y - x, color);
+//         my_mlx_pixel_put(img, mid.x - y, mid.y + x, color);
+//         my_mlx_pixel_put(img, mid.x - y, mid.y - x, color);
+//         if (d < 0)
+//             d = d + 4 * x + 6;
+//         else
+// 		{
+//             d = d + 4 * (x - y) + 10;
+//             y--;
+//         }
+//         x++;
+//     }
+// }
 
 t_dir	findmidium(t_line line)
 {
@@ -60,24 +60,24 @@ double	findradius(t_line line)
 	return (radius);
 }
 
-void	drawmidlines(t_data *img)
-{
-	t_dir	line1;
-	t_dir	line2;
+// void	drawmidlines(t_data *img)
+// {
+// 	t_dir	line1;
+// 	t_dir	line2;
 
-	line1.x = WIDTH/2;
-	line1.y = 0;
-	line2.x = WIDTH/2;
-	line2.y = HEIGHT;
-	my_mlx_line_put(img, line1, line2, 0, 0);
-	line1.x = WIDTH;
-	line1.y = HEIGHT/2;
-	line2.x = 0;
-	line2.y = HEIGHT/2;
-	my_mlx_line_put(img, line1, line2, 0, 0);
-}
+// 	line1.x = WIDTH/2;
+// 	line1.y = 0;
+// 	line2.x = WIDTH/2;
+// 	line2.y = HEIGHT;
+// 	my_mlx_line_put(img, line1, line2, 0, 0);
+// 	line1.x = WIDTH;
+// 	line1.y = HEIGHT/2;
+// 	line2.x = 0;
+// 	line2.y = HEIGHT/2;
+// 	my_mlx_line_put(img, line1, line2, 0, 0);
+// }
 
-void	my_mlx_line_put2(t_data *img, t_line line, t_line line2)
+void	my_mlx_line_put2(t_vars *vars, t_line line, t_line line2)
 {
     int err;
 	int	e2;
@@ -91,7 +91,7 @@ void	my_mlx_line_put2(t_data *img, t_line line, t_line line2)
 		// printf("%f\n", cor);
 		if (line.size != line2.size)
 			changecolor(&line, &line2, &cor);
-        my_mlx_pixel_put(img, line.x1, line.y1, create_trgb(255, 118 + cor, 0, 255 - cor));
+        my_mlx_pixel_put(vars, line.x1, line.y1, create_trgb(0, cor, 0, cor));
         if (line.x1 == line.x2 && line.y1 == line.y2)
 			break;
         e2 = err;
@@ -173,9 +173,9 @@ void	drawfilelines(t_vars *vars, int lock)
 	while (temp)
 	{
 		if (temp->next && lock == 1)
-			my_mlx_line_put(vars->img, makeadot(temp->x, temp->y), makeadot(temp->next->x, temp->next->y), temp->dot, temp->next->dot);
+			my_mlx_line_put(vars, makeadot(temp->x, temp->y), makeadot(temp->next->x, temp->next->y), temp->dot, temp->next->dot);
 		if (temp->down && lock == 2)
-			my_mlx_line_put(vars->img, makeadot(temp->x, temp->y), makeadot(temp->down->x, temp->down->y), temp->dot, temp->down->dot);
+			my_mlx_line_put(vars, makeadot(temp->x, temp->y), makeadot(temp->down->x, temp->down->y), temp->dot, temp->down->dot);
 		if (temp->next)
 			temp = temp->next;
 		else
@@ -196,7 +196,7 @@ void	drawfilelines(t_vars *vars, int lock)
 // 		return (size2 - size1);
 // }
 
-void	my_mlx_line_put(t_data *img, t_dir start, t_dir end, int size1, int size2)
+void	my_mlx_line_put(t_vars *vars, t_dir start, t_dir end, int size1, int size2)
 {
     t_line	line;
     t_line	line2;
@@ -213,5 +213,5 @@ void	my_mlx_line_put(t_data *img, t_dir start, t_dir end, int size1, int size2)
 	line2.x2 = line.x1 < line.x2 ? 1 : -1;
 	line2.y2 = line.y1 < line.y2 ? 1 : -1;
 	line2.radius = findradius(line2);
-	my_mlx_line_put2(img, line, line2);
+	my_mlx_line_put2(vars, line, line2);
 }

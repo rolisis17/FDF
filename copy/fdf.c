@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:12:17 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/17 20:38:07 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:20:15 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,16 @@ int	main()
 	t_data	img;
 	// t_dir	start;
 	// t_dir	end;
-	t_dotfile	*file = NULL;
 	int fd = open("42.fdf", O_RDONLY);
 
 	vars = (t_vars *)malloc (sizeof(t_vars));
-	if (!vars)
-		return (0);
-	put_calcs(&vars->calc);
-	readdotfile(&file, fd);
-	put_coords(&file, vars->calc);
-	printf("%d, %d\n", vars->calc.width, vars->calc.height);
+	put_calcs(vars);
+	readdotfile(&vars->file, fd);
+	put_coords(&vars->file, vars->calc);
 	vars->mlx = mlx_init();
-	vars->win = mlx_new_window(vars->mlx, vars->calc.width, vars->calc.height, "Hello world!");
-	img.img = mlx_new_image(vars->mlx, vars->calc.width, vars->calc.height);
+	vars->win = mlx_new_window(vars->mlx, vars->calc->width, vars->calc->height, "FDF");
+	img.img = mlx_new_image(vars->mlx, vars->calc->width, vars->calc->height);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length, &img.endian);
-	vars->file = file;
 	vars->img = &img;
 	// drawfilelines(vars, 1);
 	// mlx_put_image_to_window(vars->mlx, vars->win, img.img, 5, 5);
@@ -49,20 +44,20 @@ int	main()
 	mlx_loop(vars->mlx);
 }
 
-void	put_calcs(t_calc *calc)
+void	put_calcs(t_vars *vars)
 {
-	calc->width = 1080;
-	calc->height = 720;
-	calc->ratio = 40;
-	calc->size = 3;
-	calc->th = (M_PI / 180);
-	calc->cx = (calc->width / 2);
-	calc->cy = (calc->height / 2);
-	calc->len = ((calc->width / 100) * calc->ratio);
-	calc->dep = ((calc->height / 100) * calc->ratio);
-	calc->dgm = 0;
-	calc->dgy = 0;
-	calc->dgx = 0;
+	vars->calc->cx = 1080;
+	vars->calc->height = 720;
+	vars->calc->ratio = 60;
+	vars->calc->size = 5;
+	vars->calc->th = (M_PI / 180);
+	vars->calc->cx = (vars->calc->width / 2);
+	vars->calc->cy = (vars->calc->height / 2);
+	vars->calc->lx = ((vars->calc->width / 100) * vars->calc->ratio);
+	vars->calc->dy = ((vars->calc->height / 100) * vars->calc->ratio);
+	vars->calc->dgm = 0;
+	vars->calc->dgy = 0;
+	vars->calc->dgx = 0;
 }
 
 // void	choose_rotate(t_dotfile *file, int rotatecode)
@@ -80,31 +75,31 @@ void	put_calcs(t_calc *calc)
 int	close_win(int keycode, t_vars *vars)
 {
 	if (keycode == 100)
-		vars->calc.dgy++;
+	{
+		rotatelisty(vars);
+		print_loop(vars);
+	}
 	else if (keycode == 97)
-		vars->calc.dgy--;
+	{
+		rotatelisty(vars);
+		print_loop(vars);
+	}
 	else if (keycode == 119)
-		vars->calc.dgm++;
+	{
+		rotatelistmid(vars);
+		print_loop(vars);
+	}
 	else if (keycode == 115)
-		vars->calc.dgm--;
+	{
+		rotatelistmid(vars);
+		print_loop(vars);
+	}
 	else if (keycode == 65307)
 	{
 		mlx_destroy_window(vars->mlx, vars->win);
 		exit (0);
 	}
-	// printf("%d, ", vars->calc.dgy);
-	// printf("%d\n", vars->calc.dgm);
-	rotate_all(vars);
-	print_loop(vars);
 	return (1);
-}
-
-void	rotate_all(t_vars *vars)
-{
-	put_coords(&vars->file, vars->calc);
-	rotatelistmid(vars);
-	rotatelisty(vars);
-	rotatelistx(vars);
 }
 
 void print_loop(t_vars *vars)
@@ -112,7 +107,7 @@ void print_loop(t_vars *vars)
 	// printdotlist((*vars->file));
 	// printf("\n");
 	// printf("\n");
-	ft_bzero(vars->img->addr, sizeof(vars->img->bpp) * WIDTH * HEIGHT);
+	ft_bzero(vars->img->addr, sizeof(vars->img->bpp) * vars->calc->width * vars->calc->height);
 	drawfilelines(vars, 1);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 5, 5);
 }

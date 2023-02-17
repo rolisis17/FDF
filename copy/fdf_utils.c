@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:51:12 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/17 16:33:07 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:14:47 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ t_dir	makeadot(int x, int y)
 	return (coords);
 }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 0 || x > WIDTH || y < 0 || y > HEIGHT)
+	if (x < 0 || x > vars->calc->width || y < 0 || y > vars->calc->height)
 		return ;
-	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+	dst = vars->img->addr + (y * vars->img->line_length + x * (vars->img->bpp / 8));
 	*(unsigned int*)dst = color;
 }
