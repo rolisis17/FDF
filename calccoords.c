@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
 void	put_coords(t_dotfile **file, t_calc ca)
 {
@@ -19,8 +18,8 @@ void	put_coords(t_dotfile **file, t_calc ca)
 	t_dotfile	*heady;
 	int			col;
 	int			row;
-	int			x;
-	int			y;
+	static int	x;
+	static int	y;
 
 	heady = (*file);
 	headx = heady;
@@ -28,85 +27,65 @@ void	put_coords(t_dotfile **file, t_calc ca)
 	{
 		col = count_list_length(*file) - count_list_length(headx);
 		row = count_list_depth(*file) - count_list_depth(headx);
-		x = ((ca.width / 2) - (ca.len / 2)) + (ca.len / count_list_length(*file)) * col;
-		y = ((ca.height / 2) - (ca.dep / 2)) + (ca.dep / count_list_depth(*file)) * row;
-		// printf("%d, %d\n", x, y);
+		x = ((ca.cx) - ((ca.width / 100) * ca.ratio) / 2) + (((ca.width / 100)\
+		 * ca.ratio) / count_list_length(*file)) * col;
+		y = ((ca.cy) - (((ca.height / 100) * ca.ratio) / 2)) + (((ca.height /\
+		 100) * ca.ratio) / count_list_depth(*file)) * row;
 		headx->x = x;
 		headx->y = y;
 		next_dot_node(&heady, &headx);
 	}
 }
 
-
-
-void rotatelistmid(t_vars *vars)
+void	put_calcs(t_calc *calc)
 {
-	t_dotfile		*headx;
-	t_dotfile		*heady;
-	static double	x_rot;
-	static double	y_rot;
-
-	heady = vars->file;
-	headx = heady;
-	while (heady)
-	{
-		x_rot = ((headx->x - vars->calc.cx) * cos(vars->calc.th * vars->calc.dgm) \
-		- (headx->y - vars->calc.cy) * sin(vars->calc.th * vars->calc.dgm) + vars->calc.cx);
-		y_rot = ((headx->y - vars->calc.cy) * cos(vars->calc.th * vars->calc.dgm) \
-		+ (headx->x - vars->calc.cx) * sin(vars->calc.th * vars->calc.dgm) + vars->calc.cy);
-		headx->x = x_rot;
-		headx->y = y_rot;
-		printf("%f, %f\n", x_rot, y_rot);
-		next_dot_node(&heady, &headx);
-	}
-	printf("%d, ", vars->calc.dgm);
+	calc->width = 1080;
+	calc->height = 720;
+	calc->ratio = 40;
+	calc->size = 3;
+	calc->th = (M_PI / 180);
+	calc->cx = (calc->width / 2);
+	calc->cy = (calc->height / 2);
+	calc->len = ((calc->width / 100) * calc->ratio);
+	calc->dep = ((calc->height / 100) * calc->ratio);
+	calc->dgm = 0;
+	calc->dgy = 0;
+	calc->dgx = 0;
 }
 
-void rotatelisty(t_vars *vars)
+
+int	checkdot(int dot, int ck)
 {
-	t_dotfile		*headx;
-	t_dotfile		*heady;
-	t_calc			ca;
-	static double	y_rot;
-	static t_dotfile	*file;
+	static int	max;
+	static int	min;
+	int			sign;
 
-	ca = vars->calc;
-	put_coords(&file, vars->calc);
-	heady = vars->file;
-	headx = heady;
-	while (heady)
-	{
-		y_rot = (((headx->y - ca.cy) * cos(ca.th * ca.dgy)) + ca.cy);
-		headx->y = y_rot - (ca.size * headx->dot);
-		next_dot_node(&heady, &headx);
-    }
+	sign = 1;
+	if (dot < min)
+		min = dot;
+	if (dot > max)
+		max = dot;
+	if (min < 0)
+		sign = -1;
+	if ((min * sign) > max)
+		max = (min * sign);
+	if ((min * sign) < max)
+		min = max * -1;
+	if (ck)
+		return (min);
+	return (max);
 }
-
-	// headx->y = ((y_rot - ca.cy) - (ca.size * ca.dgy) / (cos(ca.th * headx->dot))) + ca.cy;
 
 void	next_dot_node(t_dotfile **findow, t_dotfile **finex)
 {
 	if ((*finex)->next)
-		*finex = (*finex)->next;
+		(*finex) = (*finex)->next;
 	else
 	{
-		*findow = (*findow)->down;
-		*finex = *findow;
+		if ((*findow)->down)
+			(*findow) = (*findow)->down;
+		else
+			(*findow) = NULL;
+		(*finex) = (*findow);
 	}
-}
-
-void rotatelistx(t_vars *vars)
-{
-	t_dotfile		*headx;
-	t_dotfile		*heady;
-	double			x_rot;
-
-	heady = vars->file;
-	headx = heady;
-	while (heady)
-	{
-		x_rot = (((headx->x - vars->calc.cx) * cos(vars->calc.th * vars->calc.dgx)) + vars->calc.cx);
-		headx->x = x_rot;
-		next_dot_node(&heady, &headx);
-    }
 }

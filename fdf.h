@@ -19,25 +19,11 @@
 # include <stdio.h>
 # include <math.h>
 
-# define WIDTH 1080
-# define HEIGHT 720
-# define RATIO 60
-# define SIZE 5
-# define THETA (M_PI / 180)
-# define CENTERX (WIDTH / 2)
-# define CENTERY (HEIGHT / 2)
-# define LENGTHX ((WIDTH / 100) * RATIO)
-# define DEPTHY ((HEIGHT / 100) * RATIO)
-# define EIXOX1 (CENTERX - ((LENGTHX) / 2))
-# define EIXOX2 (CENTERX + ((LENGTHX) / 2))
-# define EIXOY1 (CENTERY - ((DEPTHY) / 2))
-# define EIXOY2 (CENTERY + ((DEPTHY) / 2))
-
 typedef struct	s_calc {
 	double	th;
+	double	ratio;
 	int		width;
 	int		height;
-	int		ratio;
 	int		size;
 	int		cx;
 	int		cy;
@@ -52,7 +38,7 @@ typedef struct	s_data {
 	void	*img;
 	char	*addr;
 	int		bpp;
-	int		line_length;
+	int		ll;
 	int		endian;
 }				t_data;
 
@@ -72,8 +58,6 @@ typedef struct	s_line {
 
 typedef struct	s_dotfile {
 	int					dot;
-	int					col;
-	int					line;
 	double				x;
 	double				y;
 	struct s_dotfile	*next;
@@ -86,9 +70,10 @@ typedef struct	s_vars {
 	t_dotfile	*file;
 	t_data		*img;
 	t_calc		calc;
+	int			fd;
 }				t_vars;
 
-void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void		my_mlx_pixel_put(t_vars *vars, int x, int y, int color);
 int			create_trgb(int t, int r, int g, int b);
 int			get_b(int trgb);
 int			get_g(int trgb);
@@ -96,11 +81,8 @@ int			get_r(int trgb);
 int			get_t(int trgb);
 int			close_win(int keycode, t_vars *vars);
 int			close_win2(t_vars *vars);
-void		my_mlx_line_put(t_data *data, t_dir start, t_dir end, int size1, int size2);
-void		my_mlx_line_put2(t_data *img, t_line line, t_line line2);
-void		ft_drawcircle(t_data *img, t_dir mid, int r, int color);
-void		drawmidlines(t_data *img);
-t_dir		findmidium(t_line line);
+void		my_mlx_line_put(t_vars *vars, t_dir start, t_dir end, int size1, int size2);
+void		my_mlx_line_put2(t_vars *vars, t_line line, t_line line2);
 double		findradius(t_line line);
 t_dir		makeadot(int x, int y);
 t_line		combinetwodots(t_dir start, t_dir end);
@@ -116,14 +98,21 @@ void		put_coords(t_dotfile **file, t_calc ca);
 void		put_calcs(t_calc *calc);
 void		rotatelistmid(t_vars *vars);
 void		drawfilelines(t_vars *vars, int lock);
-void		printdotlist(t_dotfile *file);
 void		rotatelisty(t_vars *vars);
-void		rotatelistx(t_vars *vars);
 void		choose_rotate(t_dotfile **file, int rotatecode);
 void		changecolor(t_line *line, t_line *line2, double *cor);
-void		findcolor(int size, double *cor);
+int			findcolor(int size, double *cor);
 void		print_loop(t_vars *vars);
 void		next_dot_node(t_dotfile **findow, t_dotfile **finex);
 void		rotate_all(t_vars *vars);
+int			find_line2(int x1, int x2, int yes, int no);
+int			tcolor(double colour);
+int			checkdot(int dot, int ck);
+int			makecorratio(double cor, double cor2);
+void		free_vars(t_vars **vars);
+void		free_file(t_dotfile **file);
+void		free_splited(char **splited);
+void		makeimg(t_vars **vars, t_data *img);
+void		findkey(t_vars *vars, int keycode);
 
 #endif

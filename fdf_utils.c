@@ -32,12 +32,51 @@ t_dir	makeadot(int x, int y)
 	return (coords);
 }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 0 || x > WIDTH || y < 0 || y > HEIGHT)
+	if (x < 0 || x > vars->calc.width || y < 0 || y > vars->calc.height)
 		return ;
-	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+	dst = vars->img->addr + (y * vars->img->ll + x * (vars->img->bpp / 8));
 	*(unsigned int*)dst = color;
+}
+
+void	free_vars(t_vars **vars)
+{
+	mlx_destroy_window((*vars)->mlx, (*vars)->win);
+	close ((*vars)->fd);
+	if ((*vars)->mlx)
+		free ((*vars)->mlx);
+	if ((*vars)->file)
+		free_file(&(*vars)->file);
+	if ((*vars)->img)
+	{
+		mlx_destroy_image((*vars)->mlx, (*vars)->img);
+		free ((*vars)->img->img);
+		free ((*vars)->img);
+	}
+	exit (0);
+}
+
+void	free_file(t_dotfile **file)
+{
+	t_dotfile	*temp;
+	t_dotfile	*tofree;
+
+	temp = (*file);
+	while (*file)
+	{
+		while (temp)
+		{
+			tofree = temp;
+			temp = temp->next;
+			free (tofree);
+		}
+		if ((*file)->down)
+			(*file) = (*file)->down;
+		else
+			(*file) = NULL;
+		temp = (*file);
+	}
 }

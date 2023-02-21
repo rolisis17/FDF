@@ -28,7 +28,7 @@ int	count_list_length(t_dotfile	*lst)
 	return (counter);
 }
 
-t_dotfile	*find_next_last(t_dotfile	*lst)
+t_dotfile	*find_next_last(t_dotfile *lst)
 {
 	if (!lst)
 		return (lst);
@@ -37,7 +37,7 @@ t_dotfile	*find_next_last(t_dotfile	*lst)
 	return (lst);
 }
 
-t_dotfile	*find_down_last(t_dotfile	*lst)
+t_dotfile	*find_down_last(t_dotfile *lst)
 {
 	if (!lst)
 		return (lst);
@@ -46,7 +46,7 @@ t_dotfile	*find_down_last(t_dotfile	*lst)
 	return (lst);
 }
 
-int	count_list_depth(t_dotfile	*lst)
+int	count_list_depth(t_dotfile *lst)
 {
 	int	counter;
 

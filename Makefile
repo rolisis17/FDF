@@ -1,5 +1,6 @@
 
-SRCS = fdf.c bitshifting.c drawing.c fdf_utils.c counters.c readfile.c calccoords.c
+SRCS = fdf.c drawing.c fdf_utils.c counters.c readfile.c calccoords.c \
+findcolor.c rotate.c keys.c
 OBJ = $(SRCS:.c=.o)
 OBP = $(addprefix -fPIE , $(OBJ))
 NAME = fdf

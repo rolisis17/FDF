@@ -18,65 +18,53 @@ void	readdotfile(t_dotfile **file, int fd)
 {
 	char		*line;
 	t_dotfile	*new;
-	
+	char	**splited;
+
 	new = NULL;
-	if ((*file))
-		free (*file);
 	line = get_next_line(fd);
 	while (line)
 	{
-		makedotlist(&new, ft_split(line, 32));
+		splited = ft_split(line, 32);
+		makedotlist(&new, splited);
 		combinetwolist(file, new);
+		free_splited(splited);
+		free(line);
 		line = get_next_line(fd);
 		new = NULL;
+		free (splited);
 	}
 	free (line);
 }
 
-void printdotlist(t_dotfile *file)
+void	free_splited(char **splited)
 {
-	t_dotfile	*temp1;
-	
-	temp1 = file;
-	while (temp1)
-	{
-		printf("%f, ", temp1->x);
-		printf("%f. ", temp1->y);
-		if (temp1->next)
-			temp1 = temp1->next;
-		else
-		{
-			printf("\n");
-			file = file->down;
-			temp1 = file;
-		}
-	}
+	int	f;
+
+	f = -1;
+	while (splited[++f])
+		free (splited[f]);
 }
 
 void	makedotlist(t_dotfile **lst, char **splited)
 {
-	int			res;
-	// int			col;
-	// int			line;
-	int			f;
+	int	res;
+	int	f;
 
 	f = -1;
-	// col = 0;
-	// line = 0;
-	while (splited[++f])
+	while ((splited)[++f])
 	{
-		res = ft_atoi(splited[f]);
+		res = ft_atoi((splited)[f]);
 		if (*lst)
 			find_next_last(*lst)->next = makenode(res);
 		else
 			(*lst) = makenode(res);
+		checkdot(res, 0);
 	}
-	free (splited);
 }
 
 t_dotfile	*makenode(int dot)
 {
-	t_dotfile *new;
+	t_dotfile	*new;
 
 	new = (t_dotfile *)malloc(sizeof(t_dotfile));
 	if (!new)
@@ -84,13 +72,15 @@ t_dotfile	*makenode(int dot)
 	new->next = NULL;
 	new->down = NULL;
 	new->dot = dot;
+	new->x = 0;
+	new->y = 0;
 	return (new);
 }
 
 void	combinetwolist(t_dotfile **lst1, t_dotfile *lst2)
 {
 	t_dotfile	*temp1;
-	
+
 	temp1 = find_down_last(*lst1);
 	while (temp1 && lst2)
 	{
