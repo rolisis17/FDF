@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:51:12 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/17 16:33:07 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/22 13:31:50 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_line	combinetwodots(t_dir start, t_dir end)
 t_dir	makeadot(int x, int y)
 {
 	t_dir	coords;
-	
+
 	coords.x = x;
 	coords.y = y;
 	return (coords);
@@ -39,7 +39,7 @@ void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 	if (x < 0 || x > vars->calc.width || y < 0 || y > vars->calc.height)
 		return ;
 	dst = vars->img->addr + (y * vars->img->ll + x * (vars->img->bpp / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *) dst = color;
 }
 
 void	free_vars(t_vars **vars)

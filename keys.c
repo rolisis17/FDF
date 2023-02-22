@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bitshifting.c                                      :+:      :+:    :+:   */
+/*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:51:45 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/14 20:04:21 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/22 20:19:04 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,14 @@ int	close_win(int keycode, t_vars *vars)
 	else
 		findkey(vars, keycode);
 	rotate_all(vars);
-	print_loop(vars);
+	drawfilelines(vars);
 	return (1);
 }
 
 void	findkey(t_vars *vars, int keycode)
 {
-	if (keycode == 105)
-		vars->calc.ratio += 1;
-	else if (keycode == 111 && vars->calc.ratio > 0)
-		vars->calc.ratio -= 1;
-	else if (keycode == 114)
-		put_calcs(&vars->calc);
+	if (keycode == 114)
+		put_calcs(vars);
 	else if (keycode == 65363)
 		vars->calc.cx += 2;
 	else if (keycode == 65361)
@@ -53,18 +49,22 @@ void	findkey(t_vars *vars, int keycode)
 		vars->calc.size -= 1;
 }
 
-void print_loop(t_vars *vars)
+int	mouse_keys(int button, int x, int y, t_vars *vars)
 {
-	ft_bzero(vars->img->addr, sizeof(vars->img->bpp) \
-	* vars->calc.width * vars->calc.height);
-	drawfilelines(vars, 1);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 5, 5);
+	(void)x;
+	(void)y;
+	if (button == 4)
+		vars->calc.ratio += 1;
+	else if (button == 5 && vars->calc.ratio > 0)
+		vars->calc.ratio -= 1;
+	rotate_all(vars);
+	drawfilelines(vars);
+	return (1);
 }
 
 int	close_win2(t_vars *vars)
 {
 	mlx_destroy_window(vars->mlx, vars->win);
 	close (vars->fd);
-	// free_vars(&vars);
 	exit (0);
 }

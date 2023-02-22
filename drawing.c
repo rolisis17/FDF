@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:30:49 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/17 20:46:34 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:39:34 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,46 @@
 
 void	my_mlx_line_put2(t_vars *vars, t_line line, t_line line2)
 {
-    int err;
-	int	e2;
-	double cor;
+	int			err;
+	int			e2;
+	double		cor;
 
-	err = (line2.x1 > line2.y1 ? line2.x1 : -line2.y1) / 2;
-    while (1)
+	cor = line.cor;
+	err = (find_line2(line2.y1, line2.x1, line2.x1, -line2.y1)) / 2;
+	while (1)
 	{
+		// printf("%f, ", cor);
 		line2.radius = findradius(line);
-		changecolor(&line, &line2, &cor);
-        my_mlx_pixel_put(vars, line.x1, line.y1, tcolor(cor));
-        if (line.x1 == line.x2 && line.y1 == line.y2)
-			break;
-        e2 = err;
+		my_mlx_pixel_put(vars, line.x1, line.y1, tcolor(changecolor(&line, &line2)));
+		if (line.x1 == line.x2 && line.y1 == line.y2)
+			break ;
+		e2 = err;
 		if (e2 > -line2.x1)
 		{
 			err -= line2.y1;
 			line.x1 += line2.x2;
 		}
-        if (e2 < line2.y1)
+		if (e2 < line2.y1)
 		{
 			err += line2.x1;
 			line.y1 += line2.y2;
 		}
-    }
+	}
 }
 
-void	my_mlx_line_put(t_vars *vars, t_dir start, t_dir end, int size1, int size2)
+void	my_mlx_line_put(t_vars *vars, t_dotfile *temp, t_dotfile *next)
 {
-    t_line	line;
-    t_line	line2;
+	t_line	line;
+	t_line	line2;
 
-	line.x1 = start.x;
-	line.y1 = start.y;
-	line.x2 = end.x;
-	line.y2 = end.y;
-	line.size = size1;
-	line2.size = size2;
+	line.size = temp->dot;
+	line2.size = next->dot;
+	line.cor = temp->cor;
+	line2.cor = next->cor;
+	line.x1 = temp->x;
+	line.x2 = next->x;
+	line.y1 = temp->y;
+	line.y2 = next->y;
 	line.radius = findradius(line);
 	line2.x1 = abs(line.x2 - line.x1);
 	line2.y1 = abs(line.y2 - line.y1);
@@ -60,25 +63,24 @@ void	my_mlx_line_put(t_vars *vars, t_dir start, t_dir end, int size1, int size2)
 	my_mlx_line_put2(vars, line, line2);
 }
 
-void	drawfilelines(t_vars *vars, int lock)
+void	drawfilelines(t_vars *vars)
 {
 	t_dotfile	*temp;
 	t_dotfile	*temp2;
 
 	temp = vars->file;
 	temp2 = temp;
+	ft_bzero(vars->img->addr, sizeof(vars->img->bpp) \
+	* vars->calc.width * vars->calc.height);
 	while (temp)
 	{
-		if (temp->next && lock == 1)
-			my_mlx_line_put(vars, makeadot(temp->x, temp->y),\
-	 makeadot(temp->next->x, temp->next->y), temp->dot, temp->next->dot);
-		if (temp->down && lock == 2)
-			my_mlx_line_put(vars, makeadot(temp->x, temp->y),\
-	 makeadot(temp->down->x, temp->down->y), temp->dot, temp->down->dot);
+		if (temp->next)
+			my_mlx_line_put(vars, temp, temp->next);
+		if (temp->down)
+			my_mlx_line_put(vars, temp, temp->down);
 		next_dot_node(&temp2, &temp);
 	}
-	if (lock == 1)
-		drawfilelines(vars, 2);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
 }
 
 int	find_line2(int x1, int x2, int yes, int no)

@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:04 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/17 17:09:59 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/22 20:18:31 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	readdotfile(t_dotfile **file, int fd)
 {
 	char		*line;
 	t_dotfile	*new;
-	char	**splited;
+	char		**splited;
 
 	new = NULL;
 	line = get_next_line(fd);

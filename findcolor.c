@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bitshifting.c                                      :+:      :+:    :+:   */
+/*   findcolor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:51:45 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/14 20:04:21 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:18:10 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void    tcolor2(int *r, int *g, int *b)
+static void	tcolor2(int *r, int *g, int *b)
 {
-    if ((*b) < 0)
+	if ((*b) < 0)
 	{
 		(*r) = (*b) * -1;
 		(*b) = 0;
@@ -31,10 +31,15 @@ static void    tcolor2(int *r, int *g, int *b)
 	}
 }
 
-int tcolor(double colour)
+int	tcolor(double colour)
 {
-	int r = 0, g = 0, b = 0;
+	int	r;
+	int	b;
+	int	g;
 
+	r = 0;
+	g = 0;
+	b = 0;
 	if (colour < 255)
 	{
 		g = colour;
@@ -45,39 +50,39 @@ int tcolor(double colour)
 		b = b - (colour - 255);
 		g = 255;
 	}
-    tcolor2(&r, &g, &b);
+	tcolor2(&r, &g, &b);
 	return (create_trgb(0, r, g, b));
 }
 
-void	changecolor(t_line *line, t_line *line2, double *cor)
+double	changecolor(t_line *line, t_line *line2)
 {
 	double	size;
 	double	corratio;
-	double		cor2;
+	double	cor;
 
-	cor2 = 0;
-	findcolor(line->size, cor);
-	findcolor(line2->size, &cor2);
-	corratio = (makecorratio(*cor, cor2) / line->radius);
+	cor = line->cor;
+	corratio = (makecorratio(line->cor, line2->cor) / line->radius);
 	size = line->radius - line2->radius;
-	if (line->radius != line2->radius && *cor != cor2)
+	if (line->radius != line2->radius && line->cor != line2->cor)
 	{
-		if (*cor > cor2)
-			*cor -= corratio * size;
-		if (*cor < cor2)
-			*cor += corratio * size;
+		if (line->cor > line2->cor)
+			cor -= corratio * size;
+		if (line2->cor < line->cor)
+			cor += corratio * size;
 	}
+	return (cor);
 }
 
-int	findcolor(int size, double *cor)
+double	findcolor(int size)
 {
 	double	corratio;
+	int		cor;
 
 	if (size == checkdot(0, 1))
-		*cor = 0;
+		cor = 0;
 	corratio = (1020 / ((checkdot(0, 0) * 2) + 1));
-	*cor = corratio * (size + checkdot(0, 0));
-	return (corratio);
+	cor = corratio * (size + checkdot(0, 0));
+	return (cor);
 }
 
 int	create_trgb(int t, int r, int g, int b)
