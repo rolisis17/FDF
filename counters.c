@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 20:34:54 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/23 12:27:32 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/23 21:00:41 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ int	count_list_length(t_dotfile	*lst)
 {
 	int	counter;
 
+	counter = 0;
 	if (lst)
 		counter = 1;
 	else
-		counter = 0;
+		return (0);
 	while (lst->next)
 	{
 		counter++;
@@ -50,10 +51,11 @@ int	count_list_depth(t_dotfile *lst)
 {
 	int	counter;
 
+	counter = 0;
 	if (lst)
 		counter = 1;
 	else
-		counter = 0;
+		return (0);
 	while (lst->down)
 	{
 		counter++;
