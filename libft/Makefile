@@ -21,20 +21,20 @@ INCS = libft.h
 DB = -g
 
 .c.o: $(INCS)
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 $(NAME): $(OBJS)
-	$(LIBC) $(NAME) $(OBJS)
+	@$(LIBC) $(NAME) $(OBJS)
 
 all: $(NAME)
 
 bonus: $(BON_OBJ) $(GNL_OBJ)
-	$(LIBC) $(NAME) $(BON_OBJ) $(GNL_OBJ)
+	@$(LIBC) $(NAME) $(BON_OBJ) $(GNL_OBJ)
 
 clean: 
-	$(RM) $(OBJS) $(BON_OBJ) $(GNL_OBJ)
+	@$(RM) $(OBJS) $(BON_OBJ) $(GNL_OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all

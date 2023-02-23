@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:30:49 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/22 18:39:34 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:33:50 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ void	my_mlx_line_put2(t_vars *vars, t_line line, t_line line2)
 {
 	int			err;
 	int			e2;
-	double		cor;
 
-	cor = line.cor;
 	err = (find_line2(line2.y1, line2.x1, line2.x1, -line2.y1)) / 2;
 	while (1)
 	{
