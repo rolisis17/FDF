@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:51:12 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/22 13:31:50 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:44:10 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 void	free_vars(t_vars **vars)
 {
 	mlx_destroy_window((*vars)->mlx, (*vars)->win);
+	mlx_destroy_display((*vars)->mlx);
 	close ((*vars)->fd);
 	if ((*vars)->mlx)
 		free ((*vars)->mlx);

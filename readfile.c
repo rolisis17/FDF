@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:04 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/22 20:18:31 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:10:29 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,19 @@ void	combinetwolist(t_dotfile **lst1, t_dotfile *lst2)
 {
 	t_dotfile	*temp1;
 
-	temp1 = find_down_last(*lst1);
-	while (temp1 && lst2)
-	{
-		temp1->down = lst2;
-		temp1 = temp1->next;
-		if (lst2->next)
-			lst2 = lst2->next;
-	}
 	if (!(*lst1))
 		(*lst1) = lst2;
+	else
+	{
+		temp1 = (*lst1);
+		if (temp1->down)
+			temp1 = find_down_last(*lst1);
+		while (temp1 && lst2)
+		{
+			temp1->down = lst2;
+			temp1 = temp1->next;
+			if (lst2->next)
+				lst2 = lst2->next;
+		}
+	}
 }

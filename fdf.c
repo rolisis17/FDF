@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:12:17 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/22 20:29:07 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:47:10 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int ac, char **av)
 		if (!vars)
 			exit (0);
 		vars->fd = open(av[1], O_RDONLY);
+		vars->file = NULL;
 		readdotfile(&vars->file, vars->fd);
 		// vars->file = file;
 		put_calcs(vars);

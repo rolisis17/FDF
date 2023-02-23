@@ -18,7 +18,7 @@ RATIO?=
 	$(CC) -Wall -Wextra -Werror -g $(W_SIZE_P) $(H_SIZE_P) $(RATIO_P) -I/usr/include  -Imlx_linux -O3 -c $< -o $(<:.c=.o)
 
 $(NAME): $(OBJ)	
-	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -Llibft -lft -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz  -fPIE -o $(NAME)
+	$(CC) -fsanitize=address $(OBJ) -Lmlx_linux -lmlx_Linux -Llibft -lft -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz  -fPIE -o $(NAME)
 
 all: $(NAME)
 

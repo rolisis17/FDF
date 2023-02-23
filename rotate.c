@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 18:51:45 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/22 20:52:00 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:20:03 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	rotatelisty(t_vars *vars)
 	{
 		y_rot = (((headx->y - ca.cy) * cos(ca.th * ca.dgy)) + ca.cy);
 		headx->y = ((y_rot - ca.cy) - ((ca.size * ca.dgy) / (cos(ca.th * \
-		headx->dot))) * sin(ca.th * headx->dot)) + ca.cy;
+		ca.ratio))) * sin(ca.th * headx->dot)) + ca.cy;
 		next_dot_node(&heady, &headx);
 	}
 }
@@ -66,6 +66,6 @@ double	findradius(t_line line)
 void	rotate_all(t_vars *vars)
 {
 	put_coords(&vars->file, vars->calc);
-	rotatelisty(vars);
 	rotatelistmid(vars);
+	rotatelisty(vars);
 }

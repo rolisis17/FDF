@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:51:45 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/22 18:18:10 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:08:17 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ double	changecolor(t_line *line, t_line *line2)
 	{
 		if (line->cor > line2->cor)
 			cor -= corratio * size;
-		if (line2->cor < line->cor)
+		if (line->cor < line2->cor)
 			cor += corratio * size;
 	}
 	return (cor);

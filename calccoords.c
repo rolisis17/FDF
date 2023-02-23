@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:45:11 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/22 20:52:17 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:06:16 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	put_calcs(t_vars *vars)
 {
 	vars->calc.width = 1080;
 	vars->calc.height = 720;
-	vars->calc.ratio = 4;
+	vars->calc.ratio = 20;
 	vars->calc.size = 3;
 	vars->calc.th = (M_PI / 180);
 	vars->calc.cx = (vars->calc.width / 2);
