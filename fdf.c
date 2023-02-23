@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:12:17 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/23 12:47:10 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:12:48 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@
 int	main(int ac, char **av)
 {
 	t_vars		*vars;
-	// t_dotfile	*file;
 	t_data		img;
 
-	// file = NULL;
 	if (ac == 2)
 	{
 		vars = (t_vars *)malloc (sizeof(t_vars));
@@ -30,11 +28,10 @@ int	main(int ac, char **av)
 		vars->fd = open(av[1], O_RDONLY);
 		vars->file = NULL;
 		readdotfile(&vars->file, vars->fd);
-		// vars->file = file;
 		put_calcs(vars);
 		put_coords(&vars->file, vars->calc);
 		makeimg(&vars, &img);
-		// rotate_all(vars);
+		rotate_all(vars);
 		drawfilelines(vars);
 		mlx_hook(vars->win, 2, 1L << 0, close_win, vars);
 		mlx_hook(vars->win, 17, 1L << 2, close_win2, vars);

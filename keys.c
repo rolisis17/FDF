@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:51:45 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/23 13:24:44 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:06:01 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ void	findkey(t_vars *vars, int keycode)
 	if (keycode == 114)
 		put_calcs(vars);
 	else if (keycode == 65363)
-		vars->calc.cx += 3;
-	else if (keycode == 65361)
 		vars->calc.cx -= 3;
+	else if (keycode == 65361)
+		vars->calc.cx += 3;
 	else if (keycode == 65364)
-		vars->calc.cy += 3;
-	else if (keycode == 65362)
 		vars->calc.cy -= 3;
+	else if (keycode == 65362)
+		vars->calc.cy += 3;
 	else if (keycode == 122)
 		vars->calc.size += 1;
 	else if (keycode == 120)

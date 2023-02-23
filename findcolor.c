@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:51:45 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/23 12:08:17 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:09:14 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 static void	tcolor2(int *r, int *g, int *b)
 {
+	if ((*g) > 255)
+	{
+		(*b) = (*b) - ((*g) - 255);
+		(*g) = 255;
+	}
 	if ((*b) < 0)
 	{
 		(*r) = (*b) * -1;
@@ -21,13 +26,8 @@ static void	tcolor2(int *r, int *g, int *b)
 	}
 	if ((*r) > 255)
 	{
-		(*g) = (*g) - ((*r) - 255);
+		(*g) = (*g) - (*r) - 255;
 		(*r) = 255;
-	}
-	if ((*g) < 0)
-	{
-		(*b) = (*g) * -1;
-		(*g) = 0;
 	}
 }
 
@@ -37,21 +37,18 @@ int	tcolor(double colour)
 	int	b;
 	int	g;
 
-	r = 0;
+	r = 128;
 	g = 0;
-	b = 0;
-	if (colour < 255)
+	b = 255;
+	if (colour > 0)
+		r = r - colour;
+	if (r < 0)
 	{
-		g = colour;
-		b = 255;
-	}
-	if (colour > 255)
-	{
-		b = b - (colour - 255);
-		g = 255;
+		g = (r * -1);
+		r = 0;
 	}
 	tcolor2(&r, &g, &b);
-	return (create_trgb(0, r, g, b));
+	return (create_trgb(128, r, g, b));
 }
 
 double	changecolor(t_line *line, t_line *line2)

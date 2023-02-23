@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:04 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/23 15:54:18 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:13:15 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	makedotlist(t_dotfile **lst, char **splited)
 	while ((splited)[++f])
 	{
 		if (splited[f][0] == '\n')
-			return;
+			return ;
 		res = ft_atoi((splited)[f]);
 		if (*lst)
 			find_next_last(*lst)->next = makenode(res);

@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:30:49 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/23 14:33:50 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:15:02 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	my_mlx_line_put2(t_vars *vars, t_line line, t_line line2)
 {
-	int			err;
-	int			e2;
+	int	err;
+	int	e2;
 
 	err = (find_line2(line2.y1, line2.x1, line2.x1, -line2.y1)) / 2;
 	while (1)
 	{
-		// printf("%f, ", cor);
 		line2.radius = findradius(line);
-		my_mlx_pixel_put(vars, line.x1, line.y1, tcolor(changecolor(&line, &line2)));
+		my_mlx_pixel_put(vars, line.x1, line.y1, tcolor(changecolor(&line, \
+		&line2)));
 		if (line.x1 == line.x2 && line.y1 == line.y2)
 			break ;
 		e2 = err;

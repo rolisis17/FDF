@@ -6,7 +6,7 @@
 /*   By: dcella-d <dcella-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:45:11 by dcella-d          #+#    #+#             */
-/*   Updated: 2023/02/23 14:33:02 by dcella-d         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:13:49 by dcella-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ void	put_coords(t_dotfile **file, t_calc ca)
 	row = count_list_depth(headx) - 1;
 	while (heady)
 	{
-		headx->x = ((ca.cx) - ((col * ca.ratio) / 2) + (ca.ratio * (headx->col)));
-		headx->y = ((ca.cy) - ((row * ca.ratio) / 2) + (ca.ratio * (headx->row)));
+		headx->x = ((ca.cx) - ((col * ca.ratio) / 2) + (ca.ratio * \
+		(headx->col)));
+		headx->y = ((ca.cy) - ((row * ca.ratio) / 2) + (ca.ratio * \
+		(headx->row)));
 		next_dot_node(&heady, &headx);
 	}
 }
@@ -40,8 +42,8 @@ void	put_calcs(t_vars *vars)
 	vars->calc.th = (M_PI / 180);
 	vars->calc.cx = (vars->calc.width / 2);
 	vars->calc.cy = (vars->calc.height / 2);
-	vars->calc.dgm = 0;
-	vars->calc.dgy = 0;
+	vars->calc.dgm = 50;
+	vars->calc.dgy = 60;
 	enumaretefile(&vars->file);
 }
 
@@ -49,8 +51,8 @@ void	enumaretefile(t_dotfile **file)
 {
 	t_dotfile	*temp;
 	t_dotfile	*temp2;
-	int	len;
-	int	dep;
+	int			len;
+	int			dep;
 
 	len = 0;
 	dep = -1;
